@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE persoane [
+<!ELEMENT persoane (persoana+)>
+   <!ELEMENT persoana (nume,prenume,varsta,adresa,culoarePreferata)>
+   <!ATTLIST persoana id CDATA "0">
+   <!ELEMENT adresa (strada,numar,localitate,judet,tara)>
+   <!ELEMENT nume (#PCDATA)>
+   <!ELEMENT prenume (#PCDATA)>
+   <!ELEMENT varsta (#PCDATA)>
+   <!ELEMENT culoarePreferata (#PCDATA)>
+   <!ELEMENT strada (#PCDATA)>
+   <!ELEMENT numar (#PCDATA)>
+   <!ELEMENT localitate (#PCDATA)>
+   <!ELEMENT judet (#PCDATA)>
+   <!ELEMENT tara (#PCDATA)>
+]>
 <persoane>
     <persoana id="1">
         <nume>Popescu</nume>
@@ -11,5 +26,32 @@
             <judet>Iasi</judet>
             <tara>Romania</tara>
         </adresa>
+        <culoarePreferata>Rosu</culoarePreferata>
+    </persoana>
+    <persoana id="2">
+        <nume>Noaptes</nume>
+        <prenume>Maria</prenume>
+        <varsta>20</varsta>
+        <adresa>
+            <strada>Tudor Vladimirescu</strada>
+            <numar>T2</numar>
+            <localitate>Iasi</localitate>
+            <judet>Iasi</judet>
+            <tara>Romania</tara>
+        </adresa>
+        <culoarePreferata>Albastru</culoarePreferata>
+    </persoana>
+    <persoana id="3">
+        <nume>Noaptes</nume>
+        <prenume>Alexandra</prenume>
+        <varsta>22</varsta>
+        <adresa>
+            <strada>Tudor Vladimirescu</strada>
+            <numar>T2</numar>
+            <localitate>Iasi</localitate>
+            <judet>Iasi</judet>
+            <tara>Romania</tara>
+        </adresa>
+        <culoarePreferata>Verde</culoarePreferata>
     </persoana>
 </persoane>
