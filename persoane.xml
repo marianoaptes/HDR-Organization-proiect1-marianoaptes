@@ -14,6 +14,43 @@
    <!ELEMENT judet (#PCDATA)>
    <!ELEMENT tara (#PCDATA)>
 ]>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="persoane">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="persoana" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
+</xs:element>
+
+<xs:element name="persoana">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="id" type="xs:attribute"/>
+      <xs:element name="adresa" type="xs:string"/>
+      <xs:element name="nume" type="xs:string"/>
+      <xs:element name="prenume" type="xs:string"/>
+      <xs:element name="varsta" type="xs:string"/>
+      <xs:element name="culoarePreferata" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+
+<xs:element name="adresa">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="strada" type="xs:string"/>
+      <xs:element name="numar" type="xs:string"/>
+      <xs:element name="localitate" type="xs:string"/>
+      <xs:element name="judet" type="xs:string"/>
+      <xs:element name="tara" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+
 <persoane>
     <persoana id="1">
         <nume>Popescu</nume>
