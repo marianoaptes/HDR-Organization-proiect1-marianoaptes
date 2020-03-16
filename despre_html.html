@@ -1,29 +1,41 @@
-<html>
+<!DOCTYPE html>
+<html lang="ro">
     <head>
+        <link rel="stylesheet"  href="css/stil.css">
         <meta charset="utf-8">
         <base href="http://despre_html.html" target ="_blank" />
         <title>Programare web</title>
     </head>
     <body>
-        <font size="+3">Programare Web</font>
-        </br></br>
-        <font size="+2">Limbajul HTML</font>
-        </br></br>
+        <img src="imagini/logo.png" style="width:64px;height:64px;" alt="logo">
+        <nav class="vertical-menu">
+            <a href="inregistreaza.html">Inregistreaza</a> 
+            <a href="despre_html.html">Despre</a> 
+            <a href="Desen.html">Desen</a> 
+            <a href="video.html">Video</a>
+        </nav>
+        <br><br><br><br>
+        <p class="decorated" style="font-size:3em;">Programare Web></p>
+        <br><br>
+        <p style="font-size:2em;">Limbajul HTML></p>
+        <br><br>
         <b>HTML(HyperText Markup Language)</b>
         este un
         <em>limbaj de marcare</em>
         utilizat pentru a crea pagini web.
-        </br></br>
+        <br><br>
         Un exemplu de cod html il gasiti in imaginea urmatoare care se afla la adresa 
         <a href="http://upload.wikimedia.org/wikipedia/commons/e/e4/HTML_logo.png"> http://upload.wikimedia.org/wikipedia/commons/e/e4/HTML_logo.png</a>.
-        </br></br>
-        Imaginea are atributul <font size="-1">height</font> de valoare 147.
-        </br></br>
-        <img src ="http://upload.wikimedia.org/wikipedia/commons/e/e4/HTML_logo.png" ,aling= "left">
-        </br></br>
+        <br><br>
+        Imaginea are atributul <small>height</small> de valoare 147.
+        <br><br>
+        <div style="text-align:left">
+        <img src ="http://upload.wikimedia.org/wikipedia/commons/e/e4/HTML_logo.png"  alt="logo">
+        </div>
+        <br><br>
         <em>Tag-urile</em> html cele mai utilizate in realizarea tabelelor sunt:
-        </br></br>
-        <table border ="1">
+        <br><br>
+        <table>
 
             <tr>
                 <td>table</td>
@@ -38,27 +50,27 @@
                 <td>o celula intr-un tabel</td>
             </tr>
         </table>
-    </br></br>
+    <br><br>
     <b>Observatie:</b> Pentru a pune un contur unui tabel se poate, dar nu se recomanda) sa se puna atributul border ="1".
-</br>
+<br>
 La validare va da eroarea: <em>The border attribute on the table element is obsolete.</em>
-</br></br>
+<br><br>
 Formularele se pot crea cu ajutorul tag-ului <small>form</small> care poate contine tag-urile: <small>input, textarea, label,select, option, botton.</small>
 <br>
 Pentru mai multe detalii consultati cursul sau tutorialul 
 <a href="http://www.w3schools.com/html/html_forms.asp"> HTML Form and Inputs</a>
 de la adresa <a href="http://www.w3schools.com/html/html_forms.asp"> http://www.w3schools.com/html/html_forms.asp</a>
-</br>
-</br>
-</br>
+<br>
+<br>
+<br>
 Un exemplu de formular este urmatorul:
-</br>
+<br>
 Nume:<input />
-</br>
+<br>
 Prenume:<input />
-</br>
+<br>
 Parola:<input />
-</br>
+<br>
 Culoarea preferata:
 <select>
     <option>
@@ -71,9 +83,9 @@ Culoarea preferata:
         albastru
     </option>
 </select>
-</br>
+<br>
 Descriere:
-<textarea cols="7" wrap="off"> &nbsp;</textarea>
+<textarea cols="7" wrap="hard"> &nbsp;</textarea>
 
 </body>
 </html>
