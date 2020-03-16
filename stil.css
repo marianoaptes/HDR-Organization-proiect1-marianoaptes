@@ -1,0 +1,52 @@
+img {
+  width: 20%;
+}
+table {
+  border: 1px solid rgb(14, 12, 12);
+}
+
+.vertical-menu {
+  width: 150px; /* Set a  if you like */
+}
+
+.vertical-menu a {
+  background-color: rgb(238, 238, 238); /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 10px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+  background-color: rgb(204, 204, 204); /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a:active {
+  background-color: #4CAF50; /* Add a green color to the "active/current" link */
+  color: rgb(255, 255, 255);
+}
+form::first-line {
+  color: #5eff00;
+  font-variant: small-caps;
+}
+table, th, td {
+  border: 1px solid black;
+}
+#myDIV {
+  width: 300px;
+  height: 200px;
+  background: red;
+  animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+  from {background-color: red;}
+  to {background-color: blue;}
+}
+p.decorated {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+html.body {
+  background-image: url("imagini/paper.jpg");
+  background-repeat: repeat-y;
+}
