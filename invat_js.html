@@ -7,7 +7,7 @@
         </script>
 
     </head>
-    <body onload="afisareDetalii()">
+    <body onload="window.setInterval(afisareDetalii, 1000) ; getCoordinates(); init()">
         <img src="imagini/logo.png" style="width:64px;height:64px;" alt="logo">
         <nav class="vertical-menu">
             <a href="inregistreaza.html">Inregistreaza</a> 
@@ -16,17 +16,49 @@
             <a href="video.html">Video</a>
             <a href="invat_js.html">Invat JS</a>
         </nav>
-        <br><br><br><br>
+        <br><br>
         <aside>
             <a href="#1">Detalii de sistem <br></a>
-            <a href="#2">Second section <br></a>
-            <a href="#3">Third section <br></a>
+            <a href="#2">Internet Loto <br></a>
+            <a href="#3">Canvas <br></a>
             <a href="#4">Forth section <br></a>
         </aside>
 
-        <h1><a name="1"></a><br>Detalii de sistem</h1>
-        <br>   <p id="data"></p>
-        <br>   <p id="hour" : id="minutes" : id="seconds"></p>
-  
+        <h2><a name="1" ></a> Detalii de sistem</h2>
+         <p  id="data" ></p>
+         <p  id="hours" ></p>
+         <p  id="url" ></p>
+         <p  id="loc" ></p>
+         <p  id="brow" ></p>
+         <p  id="os" ></p>
+
+         <h2><a name="2" ></a>Internet Loto</h2>
+         <br>
+          <button onclick="extragere()">Extrage</button><br><br>
+          <p id="st" ></p>
+          <p id="nrOfMatches" ></p>
+         <form>
+            <label for="numbers">Your choice :</label><br>
+            <input type="text" id="number0" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number1" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number2" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number3" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number4" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number5" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number6" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+            <input type="text" id="number7" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
+          </form>
+          
+          <h2><a name="3" ></a>Canvas</h2>
+         <form>
+            <label for="favcolor1">Selecteaza culoarea pentru umplere:</label>
+            <input type="color" id="favcolor1" name="favcolor1">
+            <label for="favcolor2">Selecteaza culoarea pentru contur:</label>
+            <input type="color" id="favcolor2" name="favcolor2">
+            <br /><br />
+            <canvas id="myCanvas" width="500" height="200" style="border:2px solid black"></canvas>
+            <br /><br />
+            <button onclick="javascript:clearArea();return false;">Clear Area</button>
+         </form>
     </body>
     </html> 
