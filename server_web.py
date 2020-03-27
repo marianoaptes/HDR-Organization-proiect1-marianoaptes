@@ -30,14 +30,16 @@ while True:
 			fisierCerut=(linieDeStart.split(" ")[1])
 			fisierCerut=fisierCerut[1:len(fisierCerut)]
 			mesaj="Hello World! - "+fisierCerut;
-			if (path.exists("continut/"+fisierCerut)):
+			if (path.exists('..\\continut\\'+fisierCerut)):
 				raspunsHTTP="HTTP/1.1 200 OK \r\n"+"Content-Type: text/html"+"\n"+"\r\n"+"Server: NoobServer"+"\r\n"+"<html><body>"+mesaj+"</body></html>\n"
 				clientsocket.sendall(raspunsHTTP.encode('utf-8'))
 			else:
 				raspunsHTTP = "HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html" + "\n" + "\r\n" + "Server: NoobServer\n" + "\r\n" + "<html><body>" + "Nu exista fisierul" + "</body></html>\n"
 				clientsocket.sendall(raspunsHTTP.encode('utf-8'))
-			print(raspunsHTTP)
+			print("..\\continut\\"+fisierCerut)
 			break
+
+
 
 	print('S-a terminat cititrea.')
 	# TODO interpretarea sirului de caractere `linieDeStart` pentru a extrage numele resursei cerute
