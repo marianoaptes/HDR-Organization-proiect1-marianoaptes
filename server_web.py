@@ -31,12 +31,39 @@ while True:
 			fisierCerut=fisierCerut[1:len(fisierCerut)]
 			mesaj="Hello World! - "+fisierCerut;
 			if (path.exists('..\\continut\\'+fisierCerut)):
-				raspunsHTTP="HTTP/1.1 200 OK \r\n"+"Content-Type: text/html"+"\n"+"\r\n"+"Server: NoobServer"+"\r\n"+"<html><body>"+mesaj+"</body></html>\n"
-				clientsocket.sendall(raspunsHTTP.encode('utf-8'))
+				f = open('..\\continut\\'+fisierCerut, "r")
+				ct=""
+				if(fisierCerut.endswith('.html')):
+					ct='text/html';
+				else:
+					if(fisierCerut.endswith('.css')):
+						ct = 'text/css';
+					else:
+						if (fisierCerut.endswith('.js')):
+							ct = 'application/js';
+						else:
+							if (fisierCerut.endswith('.png')):
+								ct = 'text/png';
+							else:
+								if (fisierCerut.endswith('.jpg') or fisierCerut.endswith('.jpeg')):
+									ct = 'text/jpeg';
+								else:
+									if (fisierCerut.endswith('.gif')):
+										ct = 'text/gif';
+									else:
+										if (fisierCerut.endswith('.ico')):
+											ct = 'image/x-con';
+
+
+				if(ct=="image/x-con"):
+					ico = PIL.Image.open('..\\continut\\'+fisierCerut)
+					raspunsHTTP = "HTTP/1.1 200 OK \r\n" + "Content-Type: text/html"  + "\n" + "\r\n" + '<img src="data:image/x-icon;base64;'+ico+">";
+				else:
+					raspunsHTTP = "HTTP/1.1 200 OK \r\n"+"Content-Type: "+ct+"\n"+"\r\n"+f.read()
+				clientsocket.sendall(raspunsHTTP.encode(f.encoding))
 			else:
 				raspunsHTTP = "HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html" + "\n" + "\r\n" + "Server: NoobServer\n" + "\r\n" + "<html><body>" + "Nu exista fisierul" + "</body></html>\n"
-				clientsocket.sendall(raspunsHTTP.encode('utf-8'))
-			print("..\\continut\\"+fisierCerut)
+				clientsocket.sendall(raspunsHTTP.encode(f.encoding))
 			break
 
 
