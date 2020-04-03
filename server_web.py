@@ -1,6 +1,5 @@
 import socket
-import os.path
-from os import path
+import os  # pentru dimensiunea fisierului
 
 # creeaza un server socket
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -10,66 +9,87 @@ serversocket.bind(('', 5678))
 serversocket.listen(5)
 
 while True:
-	print('#########################################################################')
-	print('Serverul asculta potentiali clienti.')
-	# asteapta conectarea unui client la server
-	# metoda `accept` este blocanta => clientsocket, care reprezinta socket-ul corespunzator clientului conectat
-	(clientsocket, address) = serversocket.accept()
-	print('S-a conectat un client.')
-	# se proceseaza cererea si se citeste prima linie de text
-	cerere = ''
-	linieDeStart = ''
-	while True:
-		data = clientsocket.recv(1024)
-		cerere = cerere + data.decode()
-		print('S-a citit mesajul: \n---------------------------\n' + cerere + '\n---------------------------')
-		pozitie = cerere.find('\r\n')
-		if (pozitie > -1):
-			linieDeStart = cerere[0:pozitie]
-			print('S-a citit linia de start din cerere: ##### ' + linieDeStart + ' #####')
-			fisierCerut=(linieDeStart.split(" ")[1])
-			fisierCerut=fisierCerut[1:len(fisierCerut)]
-			mesaj="Hello World! - "+fisierCerut;
-			if (path.exists('..\\continut\\'+fisierCerut)):
-				f = open('..\\continut\\'+fisierCerut, "r")
-				ct=""
-				if(fisierCerut.endswith('.html')):
-					ct='text/html';
-				else:
-					if(fisierCerut.endswith('.css')):
-						ct = 'text/css';
-					else:
-						if (fisierCerut.endswith('.js')):
-							ct = 'application/js';
-						else:
-							if (fisierCerut.endswith('.png')):
-								ct = 'text/png';
-							else:
-								if (fisierCerut.endswith('.jpg') or fisierCerut.endswith('.jpeg')):
-									ct = 'text/jpeg';
-								else:
-									if (fisierCerut.endswith('.gif')):
-										ct = 'text/gif';
-									else:
-										if (fisierCerut.endswith('.ico')):
-											ct = 'image/x-con';
+    print('#########################################################################')
+    print('Serverul asculta potentiali clienti.')
+    # asteapta conectarea unui client la server
+    # metoda `accept` este blocanta => clientsocket, care reprezinta socket-ul corespunzator clientului conectat
+    (clientsocket, address) = serversocket.accept()
+    print('S-a conectat un client.')
+    # se proceseaza cererea si se citeste prima linie de text
+    cerere = ''
+    linieDeStart = ''
+    while(True):
+        buf = clientsocket.recv(1024)
+        if(len(buf) < 1):
+            break
+        cerere = cerere + buf.decode()
+        print('S-a citit mesajul: \n---------------------------\n' + cerere + '\n---------------------------')
+        pozitie = cerere.find('\r\n')
+        if (pozitie > -1 and linieDeStart == ''):
+            linieDeStart = cerere[0:pozitie]
+            print('S-a citit linia de start din cerere: ##### ' + linieDeStart + ' #####')
+            break
+    print('S-a terminat cititrea.')
+    if linieDeStart == '':
+        clientsocket.close()
+        print('S-a terminat comunicarea cu clientul - nu s-a primit niciun mesaj.')
+        continue
+    # interpretarea sirului de caractere `linieDeStart`
+    elementeLineDeStart = linieDeStart.split()
+    # TODO securizare
+    numeResursaCeruta = elementeLineDeStart[1]
+    if numeResursaCeruta == '/':
+        numeResursaCeruta = '/index.html'
 
+    # calea este relativa la directorul de unde a fost executat scriptul
+    numeFisier = '../continut' + numeResursaCeruta
 
-				if(ct=="image/x-con"):
-					ico = PIL.Image.open('..\\continut\\'+fisierCerut)
-					raspunsHTTP = "HTTP/1.1 200 OK \r\n" + "Content-Type: text/html"  + "\n" + "\r\n" + '<img src="data:image/x-icon;base64;'+ico+">";
-				else:
-					raspunsHTTP = "HTTP/1.1 200 OK \r\n"+"Content-Type: "+ct+"\n"+"\r\n"+f.read()
-				clientsocket.sendall(raspunsHTTP.encode(f.encoding))
-			else:
-				raspunsHTTP = "HTTP/1.1 404 Not Found \r\n" + "Content-Type: text/html" + "\n" + "\r\n" + "Server: NoobServer\n" + "\r\n" + "<html><body>" + "Nu exista fisierul" + "</body></html>\n"
-				clientsocket.sendall(raspunsHTTP.encode(f.encoding))
-			break
+    fisier = None
+    try:
+        # deschide fisierul pentru citire in mod binar
+        fisier = open(numeFisier, 'rb')
 
+        # tip media
+        numeExtensie = numeFisier[numeFisier.rfind('.') + 1:]
+        tipuriMedia = {
+            'html': 'text/html',
+            'css': 'text/css',
+            'js': 'application/js',
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'gif': 'image/gif',
+            'ico': 'image/x-icon',
+            'xml': 'application/xml',
+            'json': 'application/json'
+        }
+        tipMedia = tipuriMedia.get(numeExtensie, 'text/plain')
 
+        # se trimite raspunsul
+        clientsocket.sendall(('HTTP/1.1 200 OK\r\n').encode('utf-8'));
+        clientsocket.sendall(('Content-Length: ' + str(os.stat(numeFisier).st_size) + '\r\n').encode('utf-8'));
+        clientsocket.sendall(('Content-Type: ' + tipMedia + '\r\n').encode('utf-8'));
+        clientsocket.sendall(('Server: My PW Server\r\n').encode('utf-8'));
+        clientsocket.sendall(('\r\n').encode('utf-8'));
 
-	print('S-a terminat cititrea.')
-	# TODO interpretarea sirului de caractere `linieDeStart` pentru a extrage numele resursei cerute
-	# TODO trimiterea răspunsului HTTP
-	clientsocket.close()
-	print('S-a terminat comunicarea cu clientul.')
+        # citeste din fisier si trimite la server
+        buf = fisier.read(1024)
+        while (buf):
+            clientsocket.send(buf)
+            buf = fisier.read(1024)
+    except IOError:
+        # daca fisierul nu exista trebuie trimis un mesaj de 404 Not Found
+        msg = 'Eroare! Resursa ceruta ' + numeResursaCeruta + ' nu a putut fi gasita!'
+        print(msg)
+        clientsocket.sendall('HTTP/1.1 404 Not Found\r\n');
+        clientsocket.sendall('Content-Length: ' + str(len(msg.encode('utf-8'))) + '\r\n');
+        clientsocket.sendall('Content-Type: text/plain\r\n');
+        clientsocket.sendall('Server: My PW Server\r\n');
+        clientsocket.sendall('\r\n');
+        clientsocket.sendall(msg);
+
+    finally:
+        if fisier is not None:
+            fisier.close()
+    clientsocket.close()
+    print('S-a terminat comunicarea cu clientul.')
