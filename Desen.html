@@ -11,14 +11,48 @@
             <a href="despre_html.html">Despre</a> 
             <a href="Desen.html">Desen</a> 
             <a href="video.html">Video</a>
+            <a href="invat_js.html">Invat JS</a>
         </nav>
         <br><br><br><br>
 
     <h1>Drawing</h1>
-    <div id="myDIV">
+
+    <svg viewBox="0 0 50% 80" id="textForMyDrawing" xmlns="http://www.w3.org/2000/svg">
+        <text x="20" y="35" class="small">Just look</text>
+        <text x="40" y="55" class="heavy">at what</text>
+        <text x="55" y="65" class="small">I've </text>
+        <text x="65" y="80" class="different">drawn!</text>
+        <animateMotion dur="6s" repeatCount="indefinite" rotate="0"></animateMotion>
+    </svg>
+
+    <div id="myDIV" >
     
-    <svg width="100" height="100">
-      <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+    <svg id="sun" width="400" height="400">
+      <circle cx="25" cy="25" r="50"  fill="yellow" />
+      <line x1="80" y1="18" x2="140" y2="20" stroke="rgb(255, 255, 0)" stroke-width="2" />
+      <line x1="76" y1="45" x2="120" y2="70" stroke="rgb(255, 255, 0)" stroke-width="2" />
+      <line x1="63" y1="63" x2="100" y2="100" stroke="rgb(255, 255, 0)" stroke-width="2" />
+      <line x1="40" y1="80" x2="50" y2="110" stroke="rgb(255, 255, 0)" stroke-width="2" />
+      <line x1="20" y1="84" x2="20" y2="120" stroke="rgb(255, 255, 0)" stroke-width="2" />
+      <rect  x="200" y="130" width="75" height="65" style="fill:rgb(56, 0, 0);stroke-width:3;stroke:rgb(0,0,0)" />
+      <rect  x="0" y="190" width="300" height="10" style="fill:rgb(43, 212, 43);stroke-width:3;" />
+      <rect  x="200" y="130" width="25" height="25" style="fill:rgb(81, 202, 196);stroke-width:3" />
+      <rect  x="250" y="130" width="25" height="25" style="fill:rgb(81, 202, 196);stroke-width:3" />
+      
+        <rect  id="fereastra" x="200" y="130" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="212.5" y="130" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="212.5" y="142.5" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="200" y="142.5" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+
+        <rect  id="fereastra" x="250" y="130" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="262.5" y="130" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="262.5" y="142.5" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+        <rect  id="fereastra" x="250" y="142.5" width="12.5" height="12.5" style="fill:none;stroke-width:2;stroke:rgb(0,0,0)" />
+     
+      <rect  x="229" y="155" width="17" height="33" style="fill:rgb(71, 19, 114);stroke-width:2;stroke:rgb(0,0,0)" />
+
+      <polygon points="195,130 280,130 240,70" style="fill:rgb(187, 26, 26);" />
+
     </svg>
     </div>
     </body>

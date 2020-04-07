@@ -1,3 +1,4 @@
+ol {list-style-type: lower-roman;}
 img {
   width: 20%;
 }
@@ -6,27 +7,27 @@ table {
 }
 
 .vertical-menu {
-  width: 150px; /* Set a  if you like */
+  width: 150px; 
 }
 
 .vertical-menu a {
-  background-color: rgb(238, 238, 238); /* Grey background color */
-  color: black; /* Black text color */
-  display: block; /* Make the links appear below each other */
-  padding: 10px; /* Add some padding */
-  text-decoration: none; /* Remove underline from links */
+  background-color: rgb(238, 238, 238); 
+  color: black; 
+  display: block; 
+  padding: 10px; 
+  text-decoration: none; 
 }
 
 .vertical-menu a:hover {
-  background-color: rgb(204, 204, 204); /* Dark grey background on mouse-over */
+  background-color: rgb(204, 204, 204); 
 }
 
 .vertical-menu a:active {
-  background-color: #4CAF50; /* Add a green color to the "active/current" link */
+  background-color: #4CAF50; 
   color: rgb(255, 255, 255);
 }
 form::first-line {
-  color: #5eff00;
+  color: #2f235a;
   font-variant: small-caps;
 }
 table, th, td {
@@ -35,18 +36,39 @@ table, th, td {
 #myDIV {
   width: 300px;
   height: 200px;
-  background: red;
-  animation: mymove 5s infinite;
+  background-image: linear-gradient(to top, rgb(10, 131, 115), rgb(255, 136, 0));
+  animation: mymove 3s infinite alternate-reverse;
+  animation-timing-function: ease-in;
 }
-
+#sun line {
+  animation: sun-waves 0.5s infinite alternate;
+}
+#fereastra {
+  animation: culoare_fereastra 1s infinite alternate;
+}
+ .small { font: italic 13px sans-serif; }
+ .heavy { font: bold 30px sans-serif; }
+ .different { font: italic 40px serif; fill: rgb(255, 0, 128); }
+#textForMyDrawing{
+  rotate:20;
+}
+@keyframes sun-waves {
+to{
+  stroke-width: 6; 
+}
+}
 @keyframes mymove {
-  from {background-color: red;}
-  to {background-color: blue;}
+  from {background-image:linear-gradient(to top, rgb(10, 131, 115), rgb(255, 136, 0));}
+  to {background-image:linear-gradient(to bottom, rgb(10, 131, 115), rgb(255, 136, 0));}
+}
+@keyframes culoare_fereastra {
+  from {fill: rgb(10, 123, 131);}
+  to {fill: rgb(14, 12, 12);}
 }
 p.decorated {
   font-family: "Comic Sans MS", cursive, sans-serif;
 }
 html.body {
   background-image: url("imagini/paper.jpg");
-  background-repeat: repeat-y;
+  /* background-repeat: repeat-y; */
 }
