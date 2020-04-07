@@ -49,9 +49,16 @@ table, th, td {
  .small { font: italic 13px sans-serif; }
  .heavy { font: bold 30px sans-serif; }
  .different { font: italic 40px serif; fill: rgb(255, 0, 128); }
-#textForMyDrawing{
-  rotate:20;
+
+ #textForMyDrawing text{
+  animation: moveText 3s linear infinite;
 }
+@keyframes moveText
+  {
+    0%, 100% { transform: scale(0) rotate(33deg); }
+    35%, 80% { transform: scale(1) rotate(0deg); }
+  }
+
 @keyframes sun-waves {
 to{
   stroke-width: 6; 
