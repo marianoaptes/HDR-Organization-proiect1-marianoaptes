@@ -3,35 +3,60 @@ img {
   width: 20%;
 }
 table {
-  border: 1px solid rgb(14, 12, 12);
+  border: 1px solid rgb(46, 170, 122);
 }
-
-.vertical-menu {
-  width: 150px; 
+#logo
+{
+  margin-top: -10px;
+  float: left;
 }
-
-.vertical-menu a {
-  background-color: rgb(238, 238, 238); 
+.menu {
+  margin-top: 20px;
+  float: center;
+}
+a:hover {
+  color:blueviolet;
+}
+.menu a {
+  background-color: rgb(231, 175, 102); 
   color: black; 
-  display: block; 
-  padding: 10px; 
-  text-decoration: none; 
+  padding: 14px 16px; 
+  margin: 0px;
+  font-size: 17px;
+  float: left;
+  text-decoration: underline rgb(0, 140, 255);; 
 }
 
-.vertical-menu a:hover {
-  background-color: rgb(204, 204, 204); 
+.menu a:hover {
+  background-color: rgb(230, 47, 34); 
 }
 
-.vertical-menu a:active {
-  background-color: #4CAF50; 
-  color: rgb(255, 255, 255);
+.menu a:active {
+  background-color: rgb(117, 201, 120); 
+  color: rgb(90, 197, 170);
 }
-form::first-line {
+form::first-line, fieldset {
   color: #2f235a;
   font-variant: small-caps;
 }
 table, th, td {
   border: 1px solid black;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin:10px;
+}
+/*nu merge*/
+.flex-container div iframe:active,.flex-container div iframe:hover {
+border:10px;
+border-color: rgb(14, 12, 12);
+border-width: thick;
+}
+@media screen and (min-width: 480px) {
+  body {
+    background-color: rgb(220, 245, 232);
+  }
 }
 #myDIV {
   width: 300px;
@@ -78,4 +103,22 @@ p.decorated {
 html.body {
   background-image: url("imagini/paper.jpg");
   /* background-repeat: repeat-y; */
+}
+section {
+  border-style: solid;
+  border-left-width: 3px;
+  border-right-width: 3px;
+  border-color:black;
+  margin:3px;
+}
+.s1x4 {
+  width:24%;
+  float:left;
+}
+.s4x1 {
+  width:90%;
+}
+.s2x2 {
+  width:48%;
+  float:left;
 }

@@ -56,37 +56,167 @@ function geoError(error){
     document.getElementById("loc").innerHTML="Unable to find location";
 }
 
-function canvasFunctionality()
+function schimbaContinut(resursa)
 {
+    const xhr= new XMLHttpRequest();
 
-}
+    xhr.onreadystatechange = function ()
+    {
+        if(xhr.readyState==4)
+        {
+            if(xhr.status==200)
+            {
+                document.getElementById('continut').innerHTML=xhr.responseText
+            }
 
-
-function init() {
-    var canvas = document.getElementById('myCanvas');
-    var ctx = canvas.getContext('2d');
-    var rect = {};
-    var drag = false;
-    canvas.addEventListener('mousedown', mouseDown, false);
-    canvas.addEventListener('mouseup', mouseUp, false);
-    canvas.addEventListener('mousemove', mouseMove, false);
-}
-
-function mouseDown(e) {
-    rect.startX = e.pageX - this.offsetLeft;
-    rect.startY = e.pageY - this.offsetTop;
-    drag = true;
-}
-
-function mouseUp() { drag = false; }
-
-function mouseMove(e) {
-    if (drag) {
-        ctx.clearRect(0, 0, 500, 500);
-        ctx.drawImage(imageObj, 0, 0);
-        rect.w = (e.pageX - this.offsetLeft) - rect.startX;
-        rect.h = (e.pageY - this.offsetTop) - rect.startY;
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+            if(xhr.status==400)
+            {
+                console.log('file or resource not found');
+            }
+        }
     }
+    numeExtensie=resursa.split('.').pop()
+    tipuriMedia = {
+        'html': 'text/html',
+        'css': 'text/css',
+        'js': 'application/js',
+        'png': 'image/png',
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'gif': 'image/gif',
+        'ico': 'image/x-icon',
+        'xml': 'application/xml',
+        'json': 'application/json'
+    }
+    tipMedia = tipuriMedia[numeExtensie];
+    xhr.open('get',resursa,true);
+    xhr.setRequestHeader("Content-type", tipMedia);
+    console.log(tipMedia)
+    xhr.send();
+}
+
+var rectangle = {
+    x1: undefined,
+    y1: undefined,
+    x1: undefined,
+    y1: undefined,
+    setted: 0,
+    draw: function()
+    {
+        var color1 = document.getElementById("favcolor1").value;
+        var color2 = document.getElementById("favcolor2").value;
+        ctx.beginPath();
+        ctx.rect(this.x1,this.y1,this.x2-this.x1,this.y2-this.y1);
+        console.log(this.x1,this.y1,Math.abs(this.x2-this.x1),Math.abs(this.y2-this.y1));
+        ctx.fillStyle = color1;
+        ctx.strokeStyle = color2;
+        ctx.fill();
+        ctx.stroke();
+    },
+    setF: function(x1,y1)
+    {
+        this.x1=x1;
+        this.y1=y1;
+        this.setted=1;
+    },
+    setS: function(x2,y2)
+    {
+        this.x2=x2;
+        this.y2=y2;
+        this.draw();
+        this.setted=0;
+    },
+    getSetted()
+    {
+        return this.setted;
+    }
+}
+function mouseClick(x,y){
+    console.log("at least sees the event\n "+x);
+    if(rectangle.getSetted()) rectangle.setS(x,y);
+    else rectangle.setF(x,y);
+}
+function init(){
+    let canvas = document.querySelector('canvas');
+    console.log(canvas);
+    ctx = canvas.getContext('2d');
+    console.log(ctx);
+    canvas.addEventListener("click", function(event)
+    {
+        var cRect = canvas.getBoundingClientRect();        // Gets CSS pos, and width/height
+        var canvasX = Math.round(event.x - cRect.left);  // Subtract the 'left' of the canvas 
+        var canvasY = Math.round(event.y - cRect.top);   
+        mouseClick(canvasX,canvasY);
+    });
+}
+function clearArea()
+{
+    canvas=document.querySelector('canvas');
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+let ctx=null;
+
+function InsertInTableLine()
+{
+    try{
+        let tabel = document.getElementById("tabel");
+        let culoare = document.getElementById("tablecolor").value;
+        let linie=document.getElementById("numar").value;
+        let oCols = tabel.getElementsByTagName('td');
+        let oRows = tabel.getElementsByTagName('tr','th'); //1 pentru header-ul tabelului
+        let iColsCount = oCols.length/(oRows.length);
+        let row = tabel.insertRow(linie);
+        let cell=null;
+        for(var i=0;i<iColsCount;i++)
+        {
+        cell = row.insertCell(i);
+        cell.innerHTML = "NEW CELL";
+        cell.style.backgroundColor = culoare;
+        }
+        document.getElementById("eventualMesajDeEroare").innerHTML="\n Inserare reusita";
+   }
+    catch{
+        document.getElementById("eventualMesajDeEroare").innerHTML="Inserare imposibila, date invalide";
+    }
+}
+function InsertInTableColumn()
+{
+    try{
+        let tabel = document.getElementById("tabel");
+        let culoare = document.getElementById("tablecolor").value;
+        let coloana=document.getElementById("numar").value;
+        let cell=null;
+        for(var i=0;i<tabel.rows.length;i++)
+        {
+        cell = tabel.rows[i].insertCell(coloana);
+        cell.innerHTML = "NEW CELL";
+        cell.style.backgroundColor = culoare;
+        }
+        document.getElementById("eventualMesajDeEroare").innerHTML="\n Inserare reusita";
+   }
+    catch{
+        document.getElementById("eventualMesajDeEroare").innerHTML="Inserare imposibila, date invalide";
+    }
+}
+function ChangeLayout1x4()
+{
+    document.getElementById("sec1").className="s1x4";
+    document.getElementById("sec2").className="s1x4";
+    document.getElementById("sec3").className="s1x4";
+    document.getElementById("sec4").className="s1x4";
+}
+function ChangeLayout4x1()
+{
+    document.getElementById("sec1").className="s4x1";
+    document.getElementById("sec2").className="s4x1";
+    document.getElementById("sec3").className="s4x1";
+    document.getElementById("sec4").className="s4x1";
+}
+function ChangeLayout2x2()
+{
+    document.getElementById("sec1").className="s2x2";
+    document.getElementById("sec2").className="s2x2";
+    document.getElementById("sec3").className="s2x2";
+    document.getElementById("sec4").className="s2x2";
 }
