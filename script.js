@@ -66,7 +66,7 @@ function schimbaContinut(resursa)
         {
             if(xhr.status==200)
             {
-                document.getElementById('continut').innerHTML=xhr.responseText
+                document.getElementById('continut').innerHTML = xhr.responseText;
             }
 
             if(xhr.status==400)
@@ -75,24 +75,14 @@ function schimbaContinut(resursa)
             }
         }
     }
-    numeExtensie=resursa.split('.').pop()
-    tipuriMedia = {
-        'html': 'text/html',
-        'css': 'text/css',
-        'js': 'application/js',
-        'png': 'image/png',
-        'jpg': 'image/jpeg',
-        'jpeg': 'image/jpeg',
-        'gif': 'image/gif',
-        'ico': 'image/x-icon',
-        'xml': 'application/xml',
-        'json': 'application/json'
-    }
-    tipMedia = tipuriMedia[numeExtensie];
-    xhr.open('get',resursa,true);
-    xhr.setRequestHeader("Content-type", tipMedia);
-    console.log(tipMedia)
+ 
+    xhr.open('get',resursa+'.html',true);
+    xhr.setRequestHeader("Content-type", "text/html");
     xhr.send();
+
+    var a=$( ".menu a [data-id="+resursa+"]" );
+    $( ".menu a [data-id="+resursa+"]" ).children().addClass('actual');
+    $( ".menu a .actual" ).children().removeClass('actual');
 }
 
 var rectangle = {
@@ -143,8 +133,8 @@ function init(){
     console.log(ctx);
     canvas.addEventListener("click", function(event)
     {
-        var cRect = canvas.getBoundingClientRect();        // Gets CSS pos, and width/height
-        var canvasX = Math.round(event.x - cRect.left);  // Subtract the 'left' of the canvas 
+        var cRect = canvas.getBoundingClientRect();        
+        var canvasX = Math.round(event.x - cRect.left);  
         var canvasY = Math.round(event.y - cRect.top);   
         mouseClick(canvasX,canvasY);
     });

@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="ro">
-    <head>
-        <title>Desen</title>
-        <link rel="stylesheet"  href="css/stil.css">
-        <script language="javascript" src="js/script.js">
-        </script> 
-    </head>
-    <body onload="window.setInterval(afisareDetalii, 1000) ; getCoordinates()">
+
+  <main>
+        
         <img id= "logo" src="imagini/logo.png" alt="logo" style="width:64px;height:64px;">
-    <aside class="menu">
-        <a href="inregistreaza.html">Inregistreaza</a> 
-        <a href="despre_html.html">Despre</a> 
-        <a href="Desen.html">Desen</a> 
-        <a href="video.html">Video</a>
-        <a href="invat_js.html">Invat JS</a>
-    </aside>
+        <aside class="menu">
+            <a onclick="schimbaContinut('acasa')">Acasă</a>
+            <a onclick="schimbaContinut('inregistreaza')">Inregistreaza</a>
+            <a onclick="schimbaContinut('Desen')">Desen</a>
+            <a onclick="schimbaContinut('video')">Video</a>
+            <a onclick="schimbaContinut('invat_js')">Invat JS</a>
+            <a onclick="schimbaContinut('despre_html')">Despre Html</a>
+        </aside>
         <br><br><br><br>
         
         <aside>
@@ -31,22 +26,22 @@
           <button onclick="ChangeLayout2x2()" type="button">2x2</button>
         </aside>
         <br><br>
-        <section id="sec1" class="s4x1">
-        <h2><a name="1" ></a> Detalii de sistem</h2>
-         <p  id="data" ></p>
-         <p  id="hours" ></p>
-         <p  id="url" ></p>
-         <p  id="loc" ></p>
-         <p  id="brow" ></p>
-         <p  id="os" ></p>
+        <section id="sec1" class="s4x1" >
+        <h2><a name="1"></a> Detalii de sistem</h2>
+         <p id="data"></p>
+         <p id="hours"></p>
+         <p id="url"></p>
+         <p id="loc"></p>
+         <p id="brow"></p>
+         <p id="os"></p>
          <br>
         </section>
         <section id="sec2" class="s4x1">
          <h2><a name="2" ></a>Internet Loto</h2>
          <br>
           <button onclick="extragere()">Extrage</button><br><br>
-          <p id="st" ></p>
-          <p id="nrOfMatches" ></p>
+          <p id="st"></p>
+          <p id="nrOfMatches"></p>
          <form>
             <label for="numbers">Your choice :</label><br>
             <input type="text" id="number0" name="numbers" maxlength="2" size="4" pattern="[A-Z0-9]{2}">
@@ -105,6 +100,5 @@
           <br><br><br><br><br><br><br>
           </section>
         
-         <script>init()</script>
-    </body>
-    </html> 
+         <script>init();</script>
+        </main>

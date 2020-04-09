@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="ro">
-<head>
- <link  rel="stylesheet"  href="css/stil.css">
-<title> About </title>
-</head>
-<body>
-    <img src="imagini/logo.png" alt="logo" style="width:64px;height:64px;">
-    <nav class="vertical-menu">
-        <a href="inregistreaza.html">Inregistreaza</a> 
-        <a href="despre_html.html">Despre</a> 
-        <a href="Desen.html">Desen</a> 
-        <a href="video.html">Video</a>
-        <a href="invat_js.html">Invat JS</a>
-    </nav>
+<main>
+    <div id='continut>'>
+    <img id= "logo" src="imagini/logo.png" alt="logo" style="width:64px;height:64px;">
+    <aside class="menu">
+        <a data-id='acasa' onclick="schimbaContinut('acasa')">Acasă</a>
+        <a data-id='inregistreaza' onclick="schimbaContinut('inregistreaza')">Inregistreaza</a>
+        <a data-id='Desen' onclick="schimbaContinut('Desen')">Desen</a>
+        <a data-id='video' onclick="schimbaContinut('video')">Video</a>
+        <a data-id='invat_js' onclick="schimbaContinut('invat_js');window.setInterval(afisareDetalii, 1000);getCoordinates();">Invat JS</a>
+        <a data-id='despre_html' onclick="schimbaContinut('despre_html')">Despre Html</a>
+    </aside>
     <br><br><br><br>
     <menu>
-       
-        <li><br> Sectiunea  <a href="inregistreaza.html">Inregistreaza</a>  este pentru a crea un cont nou. <br></li>
-        <li><br> In pagina <a href="despre_html.html">Despre</a> sunt niste informatii despre html. <br></li>
-        <li><br> In pagina <a href="Desen.html">Desen</a> ar trebui sa fie un desen. <br></li>
-        <li><br> In pagina <a href="video.html">Video</a> se poate vedea un videoclip. <br></li>
+        <li> Sectiunea  <a href="inregistreaza.html">Inregistreaza</a>  este pentru a crea un cont nou. <br></li>
+        <li> In pagina <a href="despre_html.html">Despre</a> sunt niste informatii despre html. <br></li>
+        <li> In pagina <a href="Desen.html">Desen</a> ar trebui sa fie un desen. <br></li>
+        <li> In pagina <a href="video.html">Video</a> se poate vedea un videoclip. <br></li>
     </menu>
-</body>
-</html> 
+    </div>
+</main>
