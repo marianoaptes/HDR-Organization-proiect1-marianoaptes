@@ -1,26 +1,25 @@
 import socket
 import os  # pentru dimensiunea fisierului
+import threading
 
 # creeaza un server socket
+from concurrent.futures import thread
+
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # specifica ca serverul va rula pe portul 5678, accesibil de pe orice ip al serverului
 serversocket.bind(('', 5678))
 # serverul poate accepta conexiuni; specifica cati clienti pot astepta la coada
 serversocket.listen(5)
 
-while True:
-    print('#########################################################################')
-    print('Serverul asculta potentiali clienti.')
-    # asteapta conectarea unui client la server
-    # metoda `accept` este blocanta => clientsocket, care reprezinta socket-ul corespunzator clientului conectat
-    (clientsocket, address) = serversocket.accept()
-    print('S-a conectat un client.')
-    # se proceseaza cererea si se citeste prima linie de text
+clientsockets=[]
+
+def handleClient(clientsocket):
+    print(threads)
     cerere = ''
     linieDeStart = ''
-    while(True):
+    while (True):
         buf = clientsocket.recv(1024)
-        if(len(buf) < 1):
+        if (len(buf) < 1):
             break
         cerere = cerere + buf.decode()
         print('S-a citit mesajul: \n---------------------------\n' + cerere + '\n---------------------------')
@@ -29,11 +28,12 @@ while True:
             linieDeStart = cerere[0:pozitie]
             print('S-a citit linia de start din cerere: ##### ' + linieDeStart + ' #####')
             break
-    print('S-a terminat cititrea.')
+    print('S-a terminat citirea.')
+
     if linieDeStart == '':
         clientsocket.close()
         print('S-a terminat comunicarea cu clientul - nu s-a primit niciun mesaj.')
-        continue
+        return
     # interpretarea sirului de caractere `linieDeStart`
     elementeLineDeStart = linieDeStart.split()
     # TODO securizare
@@ -64,11 +64,12 @@ while True:
             'json': 'application/json'
         }
         tipMedia = tipuriMedia.get(numeExtensie, 'text/plain')
-
+        print("tip media este=" + tipMedia)
         # se trimite raspunsul
         clientsocket.sendall(('HTTP/1.1 200 OK\r\n').encode('utf-8'));
         clientsocket.sendall(('Content-Length: ' + str(os.stat(numeFisier).st_size) + '\r\n').encode('utf-8'));
         clientsocket.sendall(('Content-Type: ' + tipMedia + '\r\n').encode('utf-8'));
+        clientsocket.sendall(('Content - Encoding: gzip\r\n').encode('utf-8'));
         clientsocket.sendall(('Server: My PW Server\r\n').encode('utf-8'));
         clientsocket.sendall(('\r\n').encode('utf-8'));
 
@@ -81,15 +82,32 @@ while True:
         # daca fisierul nu exista trebuie trimis un mesaj de 404 Not Found
         msg = 'Eroare! Resursa ceruta ' + numeResursaCeruta + ' nu a putut fi gasita!'
         print(msg)
-        clientsocket.sendall('HTTP/1.1 404 Not Found\r\n');
-        clientsocket.sendall('Content-Length: ' + str(len(msg.encode('utf-8'))) + '\r\n');
-        clientsocket.sendall('Content-Type: text/plain\r\n');
-        clientsocket.sendall('Server: My PW Server\r\n');
-        clientsocket.sendall('\r\n');
-        clientsocket.sendall(msg);
+        clientsocket.sendall(('HTTP/1.1 404 Not Found\r\n').encode('utf-8'))
+        clientsocket.sendall(('Content-Length: ' + str(len(msg.encode('utf-8'))) + '\r\n').encode('utf-8'))
+        clientsocket.sendall(('Content-Type: text/plain\r\n').encode('utf-8'))
+        clientsocket.sendall(('Content - Encoding: gzip\r\n').encode('utf-8'))
+        clientsocket.sendall(('Access - Control - Allow - Origin: *\r\n').encode('utf-8'))
+        clientsocket.sendall(('Server: My PW Server\r\n').encode('utf-8'))
+        clientsocket.sendall(('\r\n').encode('utf-8'));
+        clientsocket.sendall(msg.encode('utf-8'));
 
     finally:
         if fisier is not None:
             fisier.close()
     clientsocket.close()
     print('S-a terminat comunicarea cu clientul.')
+
+
+threads=[]
+while True:
+    print('#########################################################################')
+    print('Serverul asculta potentiali clienti.')
+    # asteapta conectarea unui client la server
+    # metoda `accept` este blocanta => clientsocket, care reprezinta socket-ul corespunzator clientului conectat
+    (clientsocket, address) = serversocket.accept()
+    clientsockets.append(clientsocket)
+    print('S-a conectat un client.')
+    # se proceseaza cererea si se citeste prima linie de text
+    th=threading.Thread(handleClient(clientsocket))
+    threads.append(th)
+    th.start()
