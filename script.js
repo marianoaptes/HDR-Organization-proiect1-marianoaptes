@@ -33,9 +33,9 @@ function testInputs(number0, nrOfMatches)
 function getCoordinates()
 {
     navigator.geolocation.getCurrentPosition(showCoords,geoError);
-    document.getElementById("st").innerHTML=" ";/// this is here just so it can be loaded only once
+    /*document.getElementById("st").innerHTML=" ";/// this is here just so it can be loaded only once
     //, so that the button can change it without being later reseted
-    document.getElementById("nrOfMatches").innerHTML=" "; /// same here
+    document.getElementById("nrOfMatches").innerHTML=" "; /// same here*/
 }
 function afisareDetalii()
 {
@@ -48,8 +48,7 @@ function afisareDetalii()
     document.getElementById("os").innerHTML="Operating System: "+navigator.platform;
 }
 function showCoords(position){
-    document.getElementById("loc").innerHTML="Latitudine: "+position.coords.latitude.toFixed(2)+
-    ",    Longitudine: "+position.coords.longitude.toFixed(2);
+    document.getElementById("loc").innerHTML="Latitudine: "+position.coords.latitude.toFixed(2)+",    Longitudine: "+position.coords.longitude.toFixed(2);
 }
 
 function geoError(error){
@@ -80,9 +79,55 @@ function schimbaContinut(resursa)
     xhr.setRequestHeader("Content-type", "text/html");
     xhr.send();
 
-    var a=$( ".menu a [data-id="+resursa+"]" );
-    $( ".menu a [data-id="+resursa+"]" ).children().addClass('actual');
-    $( ".menu a .actual" ).children().removeClass('actual');
+    var $a=$("[data-id="+resursa+"]");
+    $(".actual").removeClass('actual');
+    $a.addClass('actual');
+    var actual=$(".actual");
+}
+
+function schimbaContinut(resursa,jsFisier,jsFunctie)
+{
+    const xhr= new XMLHttpRequest();
+
+    xhr.onreadystatechange = function ()
+    {
+        if(xhr.readyState==4)
+        {
+            if(xhr.status==200)
+            {
+                document.getElementById('continut').innerHTML = xhr.responseText;
+                if (jsFisier) {
+                    var elementScript = document.createElement('script');
+                    elementScript.onload = function () {
+                    console.log("hello");
+                    if (jsFunctie) {
+                    window[jsFunctie]();
+                    }
+                    };
+                    elementScript.src = jsFisier;
+                    document.head.appendChild(elementScript);
+                    } else {
+                    if (jsFunctie) {
+                    window[jsFunctie]();
+                    }
+                    }
+            }
+
+            if(xhr.status==400)
+            {
+                console.log('file or resource not found');
+            }
+        }
+    }
+ 
+    xhr.open('get',resursa+'.html',true);
+    xhr.setRequestHeader("Content-type", "text/html");
+    xhr.send();
+
+    var $a=$("[data-id="+resursa+"]");
+    $(".actual").removeClass('actual');
+    $a.addClass('actual');
+    var actual=$(".actual");
 }
 
 var rectangle = {
@@ -210,3 +255,75 @@ function ChangeLayout2x2()
     document.getElementById("sec3").className="s2x2";
     document.getElementById("sec4").className="s2x2";
 }
+
+function conectare()
+{
+    const xhr= new XMLHttpRequest();
+
+    xhr.onreadystatechange = function ()
+    {
+        if(xhr.readyState==4)
+        {
+            if(xhr.status==200)
+            {
+                var ok=false;
+                var user = document.getElementById('user').value;
+                var pass = document.getElementById('parola').value;
+                var objct = JSON.parse(xhr.responseText);
+                console.log(objct);
+                for (i in objct)
+                {
+                    console.log(objct[i].utilizator);
+                    if(objct[i].utilizator==user&&objct[i].parola==pass)
+                    ok=true;
+                }
+                
+                if(ok) document.getElementById('result').innerHTML='<div>Valid<div/>';
+                else document.getElementById('result').innerHTML='<div>Invalid<div/>';
+            }
+
+            if(xhr.status==400)
+            {
+                console.log('file or resource not found');
+            }
+        }
+    }
+ 
+    xhr.open('get','resurse/utilizatori.json',true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send();
+}
+/*
+$(document).ready(function(){
+    $("#actualizeazaUtilizatori").click(function(){
+      $.post("../resurse/utilizatori.json",
+      {
+        username: document.getElementById("username").value,
+        parola: document.getElementById("password").value
+      },
+      function(data,status){
+        alert("Data: " + data + "\nStatus: " + status);
+      });
+    });
+  });
+*/
+
+function inreg(){
+        var $nume= $('#username');
+        var $pass= $('#password');
+
+        var credentials={
+            utilizator: $nume.val(),
+            parola: $pass.val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/utilizatori',
+            data: credentials,
+            success: function(newCredentials){
+               
+            }
+        })
+    
+    }

@@ -1,9 +1,24 @@
 import socket
 import os  # pentru dimensiunea fisierului
 import threading
+import json
 
 # creeaza un server socket
 from concurrent.futures import thread
+
+#pentru post api
+# from flask import Flask, request
+#
+# app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'hard to guess string'
+#
+# @app.route('/api/utilizatori', methods=['POST'])
+# def addUser():
+# #    print request.args
+#     user = request.args.get('utilizator')
+#     passw = request.args.get('parola')
+#     with open('C:\\Users\\Maria\\Downloads\\HDR-Organization-proiect1-marianoaptes-master\\continut\\resurse\\utilizatori.json', 'w') as output:
+#         output.append(json.loads({'utilizator':user, 'parola':passw}))
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # specifica ca serverul va rula pe portul 5678, accesibil de pe orice ip al serverului
@@ -28,12 +43,38 @@ def handleClient(clientsocket):
             linieDeStart = cerere[0:pozitie]
             print('S-a citit linia de start din cerere: ##### ' + linieDeStart + ' #####')
             break
+
     print('S-a terminat citirea.')
 
     if linieDeStart == '':
         clientsocket.close()
         print('S-a terminat comunicarea cu clientul - nu s-a primit niciun mesaj.')
         return
+    if linieDeStart.startswith('POST /api/utilizatori HTTP/1.1'):
+        ultimaLinie=cerere.split('\r\n').pop()
+        ultimaLinie=ultimaLinie.split('&')
+        utilizator=ultimaLinie[0].split('=')[1]
+        parola=ultimaLinie[1].split('=')[1]
+        with open(
+                '../continut/resurse/utilizatori.json', 'r') as output:
+            fileStr=str(output.readlines())
+            fileStr=fileStr.replace(']','')
+            fileStr = fileStr.replace('[', '')
+
+            fileStr.replace("[", '')
+            fileStr.replace("]", '')
+            fileStr.replace("'", '')
+            fileStr.replace("\\", '')
+            fileStr='['+fileStr.replace('\'', '')+', {"utilizator": "'+utilizator+'", "parola": "'+parola+'"}]';
+
+            print(fileStr)
+
+        with open(
+                '../continut/resurse/utilizatori.json', 'w') as output:
+            output.write(fileStr)
+
+        return
+
     # interpretarea sirului de caractere `linieDeStart`
     elementeLineDeStart = linieDeStart.split()
     # TODO securizare
@@ -65,6 +106,8 @@ def handleClient(clientsocket):
         }
         tipMedia = tipuriMedia.get(numeExtensie, 'text/plain')
         print("tip media este=" + tipMedia)
+
+
         # se trimite raspunsul
         clientsocket.sendall(('HTTP/1.1 200 OK\r\n').encode('utf-8'));
         clientsocket.sendall(('Content-Length: ' + str(os.stat(numeFisier).st_size) + '\r\n').encode('utf-8'));
@@ -100,6 +143,7 @@ def handleClient(clientsocket):
 
 threads=[]
 while True:
+    #app.run(host='0.0.0.0', port=4996)
     print('#########################################################################')
     print('Serverul asculta potentiali clienti.')
     # asteapta conectarea unui client la server
@@ -108,6 +152,7 @@ while True:
     clientsockets.append(clientsocket)
     print('S-a conectat un client.')
     # se proceseaza cererea si se citeste prima linie de text
+
     th=threading.Thread(handleClient(clientsocket))
     threads.append(th)
     th.start()

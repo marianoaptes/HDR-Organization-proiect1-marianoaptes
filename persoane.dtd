@@ -1,0 +1,16 @@
+<!DOCTYPE persoane [
+<!ELEMENT persoane (persoana+)>
+   <!ELEMENT persoana (nume,prenume,varsta,adresa,culoarePreferata)>
+   <!ATTLIST persoana id CDATA "0">
+   <!ELEMENT adresa (strada,numar,localitate,judet,tara)>
+   <!ELEMENT nume (#PCDATA)>
+   <!ELEMENT prenume (#PCDATA)>
+   <!ELEMENT varsta (#PCDATA)>
+   <!ELEMENT culoarePreferata (#PCDATA)>
+   <!ELEMENT strada (#PCDATA)>
+   <!ELEMENT numar (#PCDATA)>
+   <!ELEMENT localitate (#PCDATA)>
+   <!ELEMENT judet (#PCDATA)>
+   <!ELEMENT tara (#PCDATA)>
+]>
+

@@ -1,65 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE persoane [
-<!ELEMENT persoane (persoana+)>
-   <!ELEMENT persoana (nume,prenume,varsta,adresa,culoarePreferata)>
-   <!ATTLIST persoana id CDATA "0">
-   <!ELEMENT adresa (strada,numar,localitate,judet,tara)>
-   <!ELEMENT nume (#PCDATA)>
-   <!ELEMENT prenume (#PCDATA)>
-   <!ELEMENT varsta (#PCDATA)>
-   <!ELEMENT culoarePreferata (#PCDATA)>
-   <!ELEMENT strada (#PCDATA)>
-   <!ELEMENT numar (#PCDATA)>
-   <!ELEMENT localitate (#PCDATA)>
-   <!ELEMENT judet (#PCDATA)>
-   <!ELEMENT tara (#PCDATA)>
-]>
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="persoane">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="persoana" type="xs:string"/>
-    </xs:sequence>
-</xs:complexType>
-</xs:element>
-
-<xs:element name="persoana">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="id" type="xs:attribute"/>
-      <xs:element name="adresa" type="xs:string"/>
-      <xs:element name="nume" type="xs:string"/>
-      <xs:element name="prenume" type="xs:string"/>
-      <xs:element name="varsta" type="xs:string"/>
-      <xs:element name="culoarePreferata" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
-
-
-<xs:element name="adresa">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="strada" type="xs:string"/>
-      <xs:element name="numar" type="xs:string"/>
-      <xs:element name="localitate" type="xs:string"/>
-      <xs:element name="judet" type="xs:string"/>
-      <xs:element name="tara" type="xs:string"/>
-    </xs:sequence>
-</xs:complexType>
-</xs:element>
-</xs:schema>
-
+<!-- <!DOCTYPE note SYSTEM "persoane.dtd">
+<xs:include schemaLocation="persoane.xsd"/>
+ -->
 <persoane>
     <persoana id="1">
         <nume>Popescu</nume>
         <prenume>Ion</prenume>
         <varsta>23</varsta>
         <adresa>
-            <strada>Lalelelor</strada>
-            <numar>12</numar>
-            <localitate>Iasi</localitate>
+            <strada>bd.Tudor Vladimirescu</strada>
+            <numar>T2</numar>
+            <localitate></localitate>
             <judet>Iasi</judet>
             <tara>Romania</tara>
         </adresa>
@@ -70,10 +21,10 @@
         <prenume>Maria</prenume>
         <varsta>20</varsta>
         <adresa>
-            <strada>Tudor Vladimirescu</strada>
-            <numar>T2</numar>
-            <localitate>Iasi</localitate>
-            <judet>Iasi</judet>
+            <strada>str.Salcimilor</strada>
+            <numar>nr.7</numar>
+            <localitate>Movilita</localitate>
+            <judet>Vrancea</judet>
             <tara>Romania</tara>
         </adresa>
         <culoarePreferata>Albastru</culoarePreferata>
@@ -83,10 +34,10 @@
         <prenume>Alexandra</prenume>
         <varsta>22</varsta>
         <adresa>
-            <strada>Tudor Vladimirescu</strada>
-            <numar>T2</numar>
-            <localitate>Iasi</localitate>
-            <judet>Iasi</judet>
+            <strada>str.Principala</strada>
+            <numar>nr.82</numar>
+            <localitate>Vintileasca</localitate>
+            <judet>Vrancea</judet>
             <tara>Romania</tara>
         </adresa>
         <culoarePreferata>Verde</culoarePreferata>
