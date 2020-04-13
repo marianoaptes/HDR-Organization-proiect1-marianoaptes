@@ -33,9 +33,6 @@ function testInputs(number0, nrOfMatches)
 function getCoordinates()
 {
     navigator.geolocation.getCurrentPosition(showCoords,geoError);
-    /*document.getElementById("st").innerHTML=" ";/// this is here just so it can be loaded only once
-    //, so that the button can change it without being later reseted
-    document.getElementById("nrOfMatches").innerHTML=" "; /// same here*/
 }
 function afisareDetalii()
 {
@@ -293,20 +290,7 @@ function conectare()
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.send();
 }
-/*
-$(document).ready(function(){
-    $("#actualizeazaUtilizatori").click(function(){
-      $.post("../resurse/utilizatori.json",
-      {
-        username: document.getElementById("username").value,
-        parola: document.getElementById("password").value
-      },
-      function(data,status){
-        alert("Data: " + data + "\nStatus: " + status);
-      });
-    });
-  });
-*/
+
 
 function inreg(){
         var $nume= $('#username');

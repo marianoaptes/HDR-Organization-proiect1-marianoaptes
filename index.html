@@ -3,6 +3,8 @@
 <head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script language="javascript" src="js/script.js"></script>
+<script language="javascript" src="js/cumparaturi.js"></script>
+<script language="javascript" src="js/worker.js"></script>
 <link  rel="stylesheet"  href="css/stil.css">
 <img id= "logo" src="imagini/logo.png" alt="logo" style="width:64px;height:64px;">
 </head>
@@ -16,6 +18,7 @@
         <a data-id='despre_html' onclick="schimbaContinut('despre_html')">Despre Html</a>
         <a data-id='persoane' onclick="schimbaContinut('persoane', 'js/persoane.js', 'incarcaPersoane')">Persoane</a>
         <a data-id='verifica' onclick="schimbaContinut('verifica')">Conectare</a>
+        <a data-id='cumparaturi' onclick="schimbaContinut('cumparaturi');sessionStorage.setItem('last_id',0);">Cumparaturi</a>
     </aside>
     <br><br><br><br>
     <div id="continut">
