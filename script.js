@@ -1,3 +1,17 @@
+function init(){
+    console.log('am initializat canvas-ul');
+    let canvas = document.querySelector('canvas');
+    console.log(canvas);
+    ctx = canvas.getContext('2d');
+    console.log(ctx);
+    canvas.addEventListener("click", function(event)
+    {
+        var cRect = canvas.getBoundingClientRect();        
+        var canvasX = Math.round(event.x - cRect.left);  
+        var canvasY = Math.round(event.y - cRect.top);   
+        mouseClick(canvasX,canvasY);
+    });
+}
 function extragere()
 {
     var number1=Math.floor(Math.random()*100).toString(16);
@@ -54,6 +68,7 @@ function geoError(error){
 
 function schimbaContinut(resursa)
 {
+    console.log("se incearca incarcarea");
     const xhr= new XMLHttpRequest();
 
     xhr.onreadystatechange = function ()
@@ -62,7 +77,24 @@ function schimbaContinut(resursa)
         {
             if(xhr.status==200)
             {
+                console.log(resursa);
                 document.getElementById('continut').innerHTML = xhr.responseText;
+                
+                if(resursa=="invat_js")
+                var elementScript = document.createElement('script');
+                
+                elementScript.onload = function () {
+                if ("init") {
+                window["init"]();
+                }
+                };
+                elementScript.src = "js/script.js";
+                document.head.appendChild(elementScript);
+                } else {
+                if ("init") {
+                window["init"]();
+                }
+                reload();
             }
 
             if(xhr.status==400)
@@ -79,7 +111,7 @@ function schimbaContinut(resursa)
     var $a=$("[data-id="+resursa+"]");
     $(".actual").removeClass('actual');
     $a.addClass('actual');
-    var actual=$(".actual");
+    //var actual=$(".actual");
 }
 
 function schimbaContinut(resursa,jsFisier,jsFunctie)
@@ -96,7 +128,6 @@ function schimbaContinut(resursa,jsFisier,jsFunctie)
                 if (jsFisier) {
                     var elementScript = document.createElement('script');
                     elementScript.onload = function () {
-                    console.log("hello");
                     if (jsFunctie) {
                     window[jsFunctie]();
                     }
@@ -108,6 +139,8 @@ function schimbaContinut(resursa,jsFisier,jsFunctie)
                     window[jsFunctie]();
                     }
                     }
+                    init();
+                    getCoordinates();
             }
 
             if(xhr.status==400)
@@ -124,7 +157,7 @@ function schimbaContinut(resursa,jsFisier,jsFunctie)
     var $a=$("[data-id="+resursa+"]");
     $(".actual").removeClass('actual');
     $a.addClass('actual');
-    var actual=$(".actual");
+    //var actual=$(".actual");
 }
 
 var rectangle = {
@@ -168,19 +201,7 @@ function mouseClick(x,y){
     if(rectangle.getSetted()) rectangle.setS(x,y);
     else rectangle.setF(x,y);
 }
-function init(){
-    let canvas = document.querySelector('canvas');
-    console.log(canvas);
-    ctx = canvas.getContext('2d');
-    console.log(ctx);
-    canvas.addEventListener("click", function(event)
-    {
-        var cRect = canvas.getBoundingClientRect();        
-        var canvasX = Math.round(event.x - cRect.left);  
-        var canvasY = Math.round(event.y - cRect.top);   
-        mouseClick(canvasX,canvasY);
-    });
-}
+
 function clearArea()
 {
     canvas=document.querySelector('canvas');
@@ -305,8 +326,8 @@ function inreg(){
             type: 'POST',
             url: '/api/utilizatori',
             data: credentials,
-            success: function(newCredentials){
-               
+            success: function(){
+               console.log('am adaugat credentialele');
             }
         })
     

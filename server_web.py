@@ -6,20 +6,6 @@ import json
 # creeaza un server socket
 from concurrent.futures import thread
 
-#pentru post api
-# from flask import Flask, request
-#
-# app = Flask(__name__)
-# app.config['SECRET_KEY'] = 'hard to guess string'
-#
-# @app.route('/api/utilizatori', methods=['POST'])
-# def addUser():
-# #    print request.args
-#     user = request.args.get('utilizator')
-#     passw = request.args.get('parola')
-#     with open('C:\\Users\\Maria\\Downloads\\HDR-Organization-proiect1-marianoaptes-master\\continut\\resurse\\utilizatori.json', 'w') as output:
-#         output.append(json.loads({'utilizator':user, 'parola':passw}))
-
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # specifica ca serverul va rula pe portul 5678, accesibil de pe orice ip al serverului
 serversocket.bind(('', 5678))
@@ -51,6 +37,7 @@ def handleClient(clientsocket):
         print('S-a terminat comunicarea cu clientul - nu s-a primit niciun mesaj.')
         return
     if linieDeStart.startswith('POST /api/utilizatori HTTP/1.1'):
+        print('api/utilizatori request')
         ultimaLinie=cerere.split('\r\n').pop()
         ultimaLinie=ultimaLinie.split('&')
         utilizator=ultimaLinie[0].split('=')[1]
